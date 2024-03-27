@@ -8,10 +8,7 @@ import requests
 
 app = Flask(__name__)
 
-# Client ID: 378093fb-efac-4094-97e8-f92924b5c38c
-# Client Secret: soSNeTPADKZOYGJU
-# Authentication failed: {"token_type":"Bearer","access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNYXBDbGFpbXMiOnsiZXhwIjoxNzExNTMzMTc5LCJpYXQiOjE3MTE1MzI4NzksImlzcyI6IkFmZm9yZG1lZCIsImp0aSI6IjM3ODA5M2ZiLWVmYWMtNDA5NC05N2U4LWY5MjkyNGI1YzM4YyIsInN1YiI6IjIxMTA0MDQ2QG1haWwuamlpdC5hYy5pbiJ9LCJjb21wYW55TmFtZSI6ImdvTWFydCIsImNsaWVudElEIjoiMzc4MDkzZmItZWZhYy00MDk0LTk3ZTgtZjkyOTI0YjVjMzhjIiwiY2xpZW50U2VjcmV0Ijoic29TTmVUUEFES1pPWUdKVSIsIm93bmVyTmFtZSI6IlNodWJoYW0iLCJvd25lckVtYWlsIjoiMjExMDQwNDZAbWFpbC5qaWl0LmFjLmluIiwicm9sbE5vIjoiMjExMDQwNDYifQ.M2360awzI-4_OyE09R863Ch0YB9TKMB34ofV_p_-Yes","expires_in":1711533179}
-# Test e-commerce server details
+
 TEST_SERVER_URL = "http://20.244.56.144/test"
 COMPANY_NAME = "goMart"
 CLIENT_ID = "378093fb-efac-4094-97e8-f92924b5c38c"
