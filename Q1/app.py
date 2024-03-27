@@ -57,9 +57,12 @@ def authenticate():
     }
     response = requests.post(auth_url, json=auth_data)
     if response.status_code == 200:
-        TOKEN = response.json()["access_token"]
+        TOKEN = response.json()
+        print(TOKEN)
     else:
         print(f"Authentication failed: {response.text}")
 
 if __name__ == "__main__":
     app.run(debug=True)
+    register()
+    authenticate()
