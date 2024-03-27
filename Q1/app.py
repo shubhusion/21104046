@@ -1,10 +1,10 @@
 """
-Code for HTTP Microservice
+Module for HTTP Ecommerce Microservice
 """
-
+import uuid
 from flask import Flask, jsonify, request
 import requests
-import uuid
+
 
 app = Flask(__name__)
 
@@ -25,8 +25,10 @@ ACCESS_CODE = "zpKKbc"
 TOKEN = None
 
 
-# Register with the test e-commerce server
 def register():
+    """
+    Registers the company with the test e-commerce server.
+    """
     global CLIENT_ID, CLIENT_SECRET
     register_url = f"{TEST_SERVER_URL}/register"
     register_data = {
@@ -48,12 +50,11 @@ def register():
         print(f"Registration failed: {response.text}")
 
 
-# Get the authentication token
 def authenticate():
     """
-    Authentication with the Test Server
+    Authenticates with the test server and retrieves access token.
     """
-    global token
+    global TOKEN
     auth_url = f"{TEST_SERVER_URL}/auth"
     auth_data = {
         "companyName": COMPANY_NAME,
@@ -72,6 +73,9 @@ def authenticate():
 def fetch_products(
     company_name, category_name, top=10, min_price=0, max_price=float("inf")
 ):
+    """
+    Fetches products from the specified company and category.
+    """
     authenticate()
     headers = {"Authorization": f"Bearer {TOKEN}"}
     url = f"{TEST_SERVER_URL}/companies/{company_name}/categories/{category_name}/products"
@@ -88,7 +92,6 @@ def fetch_products(
         return []
 
 
-# Combine and sort products from multiple companies
 def get_top_products(
     category_name,
     top=10,
@@ -97,6 +100,9 @@ def get_top_products(
     sort_by="price",
     ascending=True,
 ):
+    """
+    Retrieves top products from multiple companies.
+    """
     all_products = []
     companies = ["AMZ", "FLP", "SNP", "MYN", "AZO"]
     for company in companies:
@@ -111,15 +117,20 @@ def get_top_products(
     return sorted_products[:top]
 
 
-# Generate a unique ID for each product
 def generate_product_id(product):
+    """
+    Generates a unique ID for each product.
+    """
     return str(
         uuid.uuid5(uuid.NAMESPACE_URL, f"{product['productName']}_{product['price']}")
     )
 
-# API endpoint to get top products
+
 @app.route("/categories/<category_name>/products", methods=["GET"])
 def get_products(category_name):
+    """
+    API endpoint to get top products of a specified category.
+    """
     top = int(request.args.get("top", 10))
     min_price = int(request.args.get("minPrice", 0))
     max_price = int(request.args.get("maxPrice", float("inf")))
@@ -135,9 +146,12 @@ def get_products(category_name):
 
     return jsonify(response_data)
 
-# API endpoint to get product details
+
 @app.route("/categories/<category_name>/products/<product_id>", methods=["GET"])
 def get_product_details(category_name, product_id):
+    """
+    API endpoint to get details of a specific product.
+    """
     products = get_top_products(category_name)
     for product in products:
         if generate_product_id(product) == product_id:
