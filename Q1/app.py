@@ -157,4 +157,5 @@ def get_product_details(category_name, product_id):
 
 
 if __name__ == "__main__":
+    authenticate()
     app.run(debug=True)
